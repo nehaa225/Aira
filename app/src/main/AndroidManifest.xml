@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Camera for AIRA Vision -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Microphone for AIRA Voice Assistant -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Microphone foreground service -->
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+
+    <!--
+        Allows Android to discover installed launcher applications.
+        Used by AIRA's generic OpenAppTool.
+    -->
+    <queries>
+
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category
+                android:name="android.intent.category.LAUNCHER" />
+        </intent>
+
+    </queries>
+
+    <application
+
+        android:allowBackup="true"
+
+        android:dataExtractionRules="@xml/data_extraction_rules"
+
+        android:fullBackupContent="@xml/backup_rules"
+
+        android:icon="@mipmap/ic_launcher"
+
+        android:label="@string/app_name"
+
+        android:roundIcon="@mipmap/ic_launcher_round"
+
+        android:supportsRtl="true"
+
+        android:theme="@style/Theme.AIRA">
+
+        <!-- ========================================= -->
+        <!-- Main AIRA Activity                        -->
+        <!-- ========================================= -->
+
+        <activity
+            android:name=".MainActivity"
+
+            android:exported="true"
+
+            android:label="@string/app_name"
+
+            android:theme="@style/Theme.AIRA"
+
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+
+        </activity>
+
+
+        <!-- ========================================= -->
+        <!-- AIRA Accessibility Service                -->
+        <!-- ========================================= -->
+
+        <service
+            android:name=".AiraAccessibilityService"
+
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+
+            android:exported="false"
+
+            android:label="AIRA Accessibility Service">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.accessibilityservice.AccessibilityService" />
+
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+
+                android:resource="@xml/aira_accessibility_config" />
+
+        </service>
+
+
+        <!-- ========================================= -->
+        <!-- AIRA Background Voice Service             -->
+        <!-- ========================================= -->
+
+        <service
+            android:name=".AiraVoiceService"
+
+            android:enabled="true"
+
+            android:exported="false"
+
+            android:foregroundServiceType="microphone"
+
+            android:label="AIRA Voice Assistant" />
+
+    </application>
+
+</manifest>
